@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block content %}
+
+<table class="table text-white mb-0 bg-dark">
+  <thead>
+    <tr>
+      <th scope="col">Author</th>
+      <th scope="col">Task</th>
+      <th scope="col">Due date</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr class="fw-normal">
+      <th>
+        <img
+          src="{{ task.avator.url }}"
+          alt="avatar 1"
+          style="width: 45px; height: auto"
+        />
+        <span class="ms-2">{{ task.author.name|capfirst }}</span>
+      </th>
+      <td class="align-middle">
+        <span><a href="{% url 'detail' task.id %}">{{ task.title }}</a></span>
+      </td>
+      <td class="align-middle">
+        <h6 class="mb-0">
+          <span class="badge bg-danger">{{ task.due_date }}</span>
+        </h6>
+      </td>
+      <td class="align-middle">
+        <a href="{% url 'update' task.id %}" data-mdb-tooltip-init title="Done"
+          ><i class="fas fa-edit fa-lg text-success me-3"></i
+        ></a>
+        <a
+          href="{% url 'delete' task.id %}"
+          data-mdb-tooltip-init
+          title="Remove"
+          ><i class="fas fa-trash-alt fa-lg text-warning"></i
+        ></a>
+      </td>
+    </tr>
+    {% endfor %}
+
+    <a href="{% url 'add' %}" class="btn btn-primary"
+      ><i class="fas fa-add"></i> Add new Task</a
+    >
+  </tbody>
+</table>
+
+<div class="pagination">
+  <!-- PREVIOUS Page -->
+  {% if tasks.has_previous %}
+
+  <a href="?page=1">First</a>
+  <a href="?page={{ tasks.previous_page_number }}">previous</a>
+
+  {% endif %}
+
+  <!-- CURRENT Page -->
+  <span> Page {{ tasks.number }} of {{ tasks.paginator.num_pages }} </span>
+
+  <!-- NEXT Page -->
+  {% if tasks.has_next %}
+
+  <a href="?page={{ tasks.next_page_number }}">next</a>
+  <a href="?page={{ tasks.paginator.num_pages }}">Last</a>
+
+  {% endif %}
+</div>
+
+{% endblock content %}

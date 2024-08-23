@@ -1,0 +1,18 @@
+<nav class="navbar navbar-dark bg-light text-white">
+  <ul class="nav">
+    <li><a href="{% url 'list' %}" class="nav nav-item">Home</a></li>
+    {% if user.is_authenticated %}
+    <li>
+      <a href="{% url 'auth:logout' %}" class="nav nav-item btn btn-danger"
+        >Logout {{ user.username }}</a
+      >
+    </li>
+    {% else %}
+    <li>
+      <a href="{% url 'auth:login' %}" class="nav nav-item btn btn-primary"
+        >Login</a
+      >
+    </li>
+    {% endif %}
+  </ul>
+</nav>
