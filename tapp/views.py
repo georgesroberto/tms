@@ -48,7 +48,7 @@ class TaskDetail(DetailView):
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
     form = TaskForm
-    fields = ['title', 'description', 'status', 'due_date', 'avator', 'author', 'tag']
+    fields = ['title', 'description', 'status', 'due_date', 'author', 'tag']
     success_url = '/'
     template_name = 'tapp/create.html'
 
