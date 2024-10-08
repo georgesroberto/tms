@@ -1,9 +1,16 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %} {% load socialaccount %}
 
 <h1>User Login</h1>
 <form method="post">
   {% csrf_token %} {{ form.as_p }}
   <button type="submit">Login</button>
+
+  <a
+    href="{% provider_login_url 'google' %}"
+    next="/"
+    class="btn btn-outline-primary text-white"
+    >Google</a
+  >
 </form>
 
 <!-- Child temp -->

@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tapp.urls')),
     path('auth/', include('accounts.urls', namespace='auth')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 # TODO: Configure media
