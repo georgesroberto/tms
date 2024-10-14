@@ -8,6 +8,12 @@ from .forms import TaskForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.utils.decorators import method_decorator
 
+# Asynchronous Programming Imports
+import asyncio
+from asgiref.sync import sync_to_async
+from django.views import View
+from django.http import JsonResponse
+
 # Logic
 class TaskList(ListView):
     model = Task
@@ -32,6 +38,16 @@ class TaskList(ListView):
 
         return render(request, 'tapp/index.html', context)
 
+
+class TaskListByApi(ListView):
+    model = Task
+    template_name = 'tapp/api.html'
+
+class TaskListApiView(View):
+    async def get(self, request):
+        await asyncio.sleep(5)
+        tasks = await sync_to_async(lambda: list(Task.objects.values().order_by('due_date')))()
+        return JsonResponse(tasks, safe=False)
 
 class TaskDetail(DetailView):
     model = Task
