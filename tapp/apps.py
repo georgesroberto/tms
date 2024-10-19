@@ -4,3 +4,6 @@ from django.apps import AppConfig
 class TappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'tapp'
+
+    def ready(self):
+        import tapp.signals
